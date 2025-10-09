@@ -1,11 +1,57 @@
-.hero {
-  background-image: url('https://i.imgur.com/D011UGv.jpeg');
+/* === NAVBAR === */
+.navbar {
+  background-color: #37353E; 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 60px; /* antes 15px 40px — más equilibrio */
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+  backdrop-filter: blur(5px);
+  box-sizing: border-box;
+}
+
+/* Logo a la izquierda */
+.logo {
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+/* Enlaces a la derecha */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px; /* antes 25px — más compacto */
+  margin: 0;
+  padding: 0;
+  flex-wrap: wrap; /* para evitar que se salgan si la ventana se hace pequeña */
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: #ff6b6b;
+}
+
+
+/* === SECCIÓN HOME === */
+.home {
+  background-image: url("photos/home-background.jpeg");
   background-size: cover;
   background-position: center;
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 70px; /* evita que el navbar tape el contenido */
 }
 
 .overlay {
@@ -19,9 +65,24 @@
 
 .contenido-hero {
   color: white;
-  text-align: center;
+  text-align: center;          /* centra todo el texto */
+  max-width: 700px;            /* limita el ancho del bloque para que el texto no se extienda demasiado */
+  margin: 0 auto;              /* centra horizontalmente el contenedor */
   padding: 20px;
 }
+
+.contenido-hero h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.contenido-hero p {
+  font-size: 1rem;
+  line-height: 1.6;            /* mejora la legibilidad */
+  color: #e0e0e0;              /* un blanco suave */
+}
+
 
 .btn {
   background-color: #ff6b6b;
@@ -30,4 +91,12 @@
   border-radius: 8px;
   text-decoration: none;
   font-weight: bold;
+}
+
+/* === ESTILOS GENERALES === */
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background-color: #111;
+  color: white;
 }
