@@ -1,4 +1,4 @@
-/* === FONDO GENERAL === */
+
 body {
   margin: 0;
   font-family: "Poppins", sans-serif;
@@ -9,7 +9,7 @@ body {
   color: white;
 }
 
-/* === NAVBAR === */
+
 .navbar {
   background-color: #37353E;
   display: flex;
@@ -49,7 +49,7 @@ body {
   color: #ff6b6b;
 }
 
-/* === SECCIÓN HOME === */
+
 .home {
   height: 100vh;
   display: flex;
@@ -113,7 +113,7 @@ body {
   letter-spacing: 0.3px;
 }
 
-/* === SECCIÓN SECOND === */
+
 .second {
   text-align: center;
   max-width: 900px;
@@ -134,7 +134,6 @@ body {
   margin-bottom: 40px;
 }
 
-/* === TARJETAS === */
 .card-container {
   display: flex;
   justify-content: center;
@@ -164,7 +163,7 @@ body {
   line-height: 1.6;
 }
 
-/* === BOTÓN FINAL === */
+
 .btn {
   background-color: #333446;
   color: white;
@@ -181,4 +180,250 @@ body {
   transform: translateY(-3px);
 }
 
+.projects {
+  text-align: center;
+  background-color: #2b2933;
+  color: white;
+  padding: 50px 20px;
+}
+
+.projects h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.intro {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  font-weight: 300;
+  color: #e0e0e0;
+  margin-bottom: 40px;
+}
+
+.project-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #3a3843;
+  border-radius: 15px;
+  padding: 30px;
+  margin: 0 auto;
+  max-width: 850px;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
+}
+
+.project-image {
+  width: 220px;
+  height: auto;
+  border-radius: 10px;
+  margin-right: 40px;
+}
+
+.project-info {
+  text-align: left;
+  max-width: 500px;
+}
+
+.project-info h3 {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.description {
+  color: #d5d5d5;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.tech-title {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tag {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  color: white;
+}
+
+.laravel {
+  background-color: #f05340;
+}
+
+.tailwind {
+  background-color: #38bdf8;
+}
+
+.figma {
+  background-color: #a259ff;
+}
+
+.mysql {
+  background-color: #00758f;
+}
+
+@media (max-width: 768px) {
+  .project-card {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .project-image {
+    margin: 0 0 20px 0;
+    width: 180px;
+  }
+
+  .project-info {
+    text-align: center;
+  }
+}
+
+.projects {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+
+
+.project-card,
+.project-card2 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row-reverse; /* 🔹 Imagen a la derecha */
+  background-color: #191A22;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  color: white;
+  max-width: 900px;
+  margin: 0 auto;
+  transition: transform 0.4s ease, box-shadow 0.4s ease, border 0.4s ease;
+  border: 2px solid transparent;
+}
+
+.project-card:hover,
+.project-card2:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+}
+
+/* Imagen del proyecto */
+.project-image {
+  width: 260px;
+  height: auto;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+/* Información del proyecto */
+.project-info {
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.project-info h3 {
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.description {
+  font-size: 1rem;
+  color: #ccc;
+}
+
+.tech-title {
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+
+/* Etiquetas */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.5rem;
+}
+
+.tag {
+  background-color: #2b2b40;
+  padding: 0.4rem 0.8rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+}
+
+.tag.laravel { background-color: #e34f4f; }
+.tag.tailwind { background-color: #38bdf8; }
+.tag.figma { background-color: #a259ff; }
+.tag.mysql { background-color: #00758f; }
+
+/* Versión para que la imagen esté a la derecha */
+.project-card2 {
+  flex-direction: row-reverse;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .project-card,
+  .project-card2 {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .project-image {
+    width: 80%;
+  }
+}
+
+/* === Enlaces de tarjetas de proyectos: quitar subrayado y mantener estilos === */
+a.project-card,
+a.project-card * {
+  text-decoration: none !important;
+  color: inherit !important;
+  cursor: pointer;
+}
+
+/* Mantener la apariencia y comportamiento de .project-card en el <a> */
+a.project-card {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* o space-between según tu diseño */
+  background-color: #191A22;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  max-width: 900px;
+  margin: 0 auto 2rem auto;
+  transition: transform 0.4s ease, box-shadow 0.4s ease, border 0.4s ease;
+  border: 2px solid transparent;
+  text-decoration: none;
+  color: inherit;
+}
+
+a.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+}
+/* === Enlaces visitados y activos: mantener estilo limpio === */
+a.project-card:visited,
+a.project-card:active,
+a.project-card:focus,
+a.project-card:hover {
+  text-decoration: none !important;
+  color: inherit !important;
+  outline: none !important;
+}
 
