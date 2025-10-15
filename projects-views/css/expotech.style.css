@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+
+/* --- BODY: fondo con ruta correcta (desde projects-views/css) --- */
+body {
+  /* ruta correcta: sube dos niveles desde projects-views/css/ hacia la raíz */
+  background-image: url("../../photos/background2.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #0d0d0d; /* fallback si no carga la imagen */
+  color: #fff;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* Sección principal del encabezado */
+
+
+/* Animación general para el texto */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Título principal */
+.hero-section {
+  text-align: center;        /* centra el texto */
+  margin: 2rem 0 1rem 0;     /* espacio arriba y abajo */
+  padding: 0;                /* sin relleno extra */
+}
+
+.hero-section h1 {
+  color: #00bfff;
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  opacity: 0;
+  animation: fadeInUp 1s ease forwards;
+}
+
+.hero-section h2 {
+  color: #ffffff;
+  font-size: 1.8rem;
+  font-weight: 400;
+  margin-bottom: 0;
+  opacity: 0;
+  animation: fadeInUp 1s ease forwards;
+  animation-delay: 0.4s;
+}
+
+
+/* Ajuste del fondo general */
+
+
+
+
+
+.content {
+  padding: 3rem 10%;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  animation: fadeIn 1.2s ease;
+}
+
+.intro {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.text-box {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.06);
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  line-height: 1.8;
+}
+
+.text-box p { font-size: 1rem; color: #e3e3e3; }
+
+.media {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.project-photo {
+  width: 100%;
+  border-radius: 20px;
+  box-shadow: 0 0 25px rgba(0, 195, 255, 0.35);
+  transition: transform 0.3s ease;
+}
+
+.project-photo:hover { transform: scale(1.02); }
+
+.project-video {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 0 18px rgba(0,0,0,0.4);
+}
+
+.footer {
+  text-align: center;
+  padding: 1.5rem;
+  background: rgba(0,0,0,0.5);
+  color: #aaa;
+  font-size: 0.9rem;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 900px) {
+  .hero-section h1 { font-size: 2.2rem; }
+  .hero-section h2 { font-size: 1.4rem; }
+  .intro { flex-direction: column; }
+  .media video, .media img { width: 90%; }
+}
