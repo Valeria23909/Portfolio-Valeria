@@ -597,3 +597,53 @@ a.project-card:hover {
 }
 
 
+
+.info-box {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  padding: 15px 20px;
+  margin-bottom: 15px;
+  backdrop-filter: blur(6px);
+  transition: background 0.3s ease;
+}
+
+.info-box:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.info-box .icon {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+}
+
+.info-box div {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-box strong {
+  color: #fff;
+  font-size: 1rem;
+}
+
+.info-box p {
+  margin: 0;
+  color: #93c5fd;
+  font-size: 0.9rem;
+}
+
+.info-box a {
+  text-decoration: none;
+  color: #93c5fd;
+  transition: color 0.3s ease;
+}
+
+.info-box a:hover {
+  color: #3b82f6;
+}
+
+
