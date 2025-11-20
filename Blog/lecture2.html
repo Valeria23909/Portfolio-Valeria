@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Reading Mode — How I Overcame My Fear</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg-1: #0b0f13;
+      --bg-2: #0f1418;
+      --card: rgba(18,22,26,0.6);
+      --muted: #9aa6b2;
+      --accent: #7dd3fc;
+      --text: #e6eef6;
+      --max-width: 800px;
+      --base-font: 18px;
+    }
+
+    /* Page */
+    html,body{height:100%}
+   body{
+  margin:0;
+  min-height:100%;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: radial-gradient(1200px 600px at 10% 10%, rgba(125,211,252,0.03), transparent 6%),
+              linear-gradient(180deg,var(--bg-1),var(--bg-2));
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  display:block;   /* ← YA ESTÁ */
+  padding:48px 24px;
+}
+
+
+
+    /* Subtle vignette */
+    body::after{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background: radial-gradient(60% 40% at 50% 40%, rgba(255,255,255,0.02), transparent 30%),
+                  linear-gradient(180deg, rgba(0,0,0,0.28), transparent 40%);
+      mix-blend-mode:overlay;
+    }
+
+    /* Reading card */
+    .reader {
+      width:100%;
+      max-width:var(--max-width);
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:14px;
+      padding:36px;
+      box-shadow: 0 8px 40px rgba(2,6,12,0.7), inset 0 1px 0 rgba(255,255,255,0.02);
+      backdrop-filter: blur(6px) saturate(110%);
+      border: 1px solid rgba(255,255,255,0.03);
+    }
+
+    /* Header / controls */
+    .reader-header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      margin-bottom:18px;
+    }
+
+    .meta {
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+
+    .title{
+      font-family: "Merriweather", Georgia, serif;
+      font-size:1.45rem;
+      line-height:1.15;
+      margin:0;
+      font-weight:700;
+      letter-spacing: -0.01em;
+      color:var(--text);
+    }
+
+    .meta small{
+      color:var(--muted);
+      display:block;
+      font-size:0.86rem;
+    }
+
+    /* Controls */
+    .controls{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .control-btn{
+      background:transparent;
+      border:1px solid rgba(255,255,255,0.06);
+      color:var(--text);
+      padding:8px 10px;
+      border-radius:8px;
+      cursor:pointer;
+      font-weight:600;
+      font-size:0.9rem;
+      transition:transform .12s ease, background .12s ease;
+    }
+    .control-btn:hover{ transform:translateY(-2px); background: rgba(255,255,255,0.02); }
+    .control-btn:active{ transform:translateY(0); }
+
+    /* Progress bar */
+    .progress-wrap{
+      height:6px;
+      background: rgba(255,255,255,0.03);
+      border-radius:999px;
+      overflow:hidden;
+      margin:14px 0 22px;
+    }
+    .progress{
+      height:100%;
+      width:0%;
+      background: linear-gradient(90deg, rgba(125,211,252,0.24), rgba(125,211,252,0.6));
+      box-shadow: 0 4px 18px rgba(125,211,252,0.06);
+      transition: width .08s linear;
+    }
+
+    /* Article content */
+    article{
+      font-family: "Merriweather", Georgia, serif;
+      font-size: var(--base-font);
+      line-height:1.75;
+      color:var(--text);
+    }
+
+    article p{
+      margin:0 0 1.15em 0;
+      color: #cfe7f7;
+      opacity:0.95;
+    }
+
+    article p.lead{
+      color:var(--muted);
+      font-weight:500;
+      font-size:1.03rem;
+    }
+
+    article blockquote{
+      margin:18px 0;
+      padding:12px 18px;
+      border-left:4px solid rgba(125,211,252,0.28);
+      background: rgba(125,211,252,0.03);
+      border-radius:8px;
+      color: #dff6ff;
+      font-style:italic;
+    }
+
+    article h2{
+      font-family: "Merriweather", serif;
+      margin: 16px 0 8px;
+      font-size:1.05rem;
+      letter-spacing: -0.01em;
+    }
+
+    /* Drop cap style for first letter */
+    article p:first-of-type::first-letter{
+      float:left;
+      font-size:3.2rem;
+      line-height:1;
+      padding-right:10px;
+      font-weight:700;
+      color:var(--accent);
+      font-family: "Merriweather", Georgia, serif;
+    }
+
+    /* Smaller screens */
+    @media (max-width:600px){
+      .reader{ padding:20px; border-radius:12px; }
+      .title{ font-size:1.15rem; }
+      :root{ --base-font:16px; }
+    }
+
+    /* Accessibility focus */
+    .control-btn:focus{ outline:3px solid rgba(125,211,252,0.18); outline-offset:2px; }
+
+  </style>
+</head>
+<body>
+
+  <main class="reader" role="main" aria-labelledby="article-title">
+    <div class="reader-header">
+      <div class="meta" aria-hidden="false">
+        <div>
+          <h1 id="article-title" class="title">How Every Academic Challenge Also Helps Me Grow as a Person</h1>
+          <small>Personal reflection • Reading mode — Dark</small>
+        </div>
+      </div>
+
+      <div class="controls" aria-hidden="false">
+        <button class="control-btn" id="decrease" title="Decrease text size" aria-label="Decrease text size">A-</button>
+        <button class="control-btn" id="increase" title="Increase text size" aria-label="Increase text size">A+</button>
+        <button class="control-btn" id="contrast" title="Toggle higher contrast" aria-label="Toggle contrast">Contrast</button>
+      </div>
+    </div>
+
+    <div class="progress-wrap" aria-hidden="true">
+      <div class="progress" id="progress"></div>
+    </div>
+
+    <article id="article">
+
+  <p class="lead">
+    Throughout my learning journey, I have discovered an important truth: every academic challenge also helps me grow as a person.
+  </p>
+
+  <p>
+    At first, I believed that studying was only about getting good grades, completing assignments, or memorizing information. However, with time, I learned that every new topic, every difficult task, and every project that pushed me to my limits was shaping not only my understanding of the world but also the kind of person I was becoming.
+  </p>
+
+  <p>
+    Stepping outside your comfort zone is never easy, and I felt that many times. Whenever I had to face something unfamiliar, I worried about not being good enough, failing, or simply not meeting expectations. But I also discovered something powerful: real growth begins exactly where comfort ends. The moments that felt the hardest were the ones that taught me the most.
+  </p>
+
+  <p>
+    One of the first areas where I experienced this growth was programming. When I started, everything looked complicated — the logic, the syntax, and even understanding error messages felt overwhelming. There were days when I spent hours trying to solve a problem and still felt stuck. However, instead of giving up, I learned to be patient, to break problems into smaller parts, and to trust the process.
+  </p>
+
+  <p>
+    Over time, I noticed how programming wasn’t just teaching me technical skills; it was teaching me perseverance, critical thinking, and resilience. Every line of code I wrote, every bug I fixed, and every project I completed showed me that I was capable of more than I thought.
+  </p>
+
+  <p>
+    Another important area of growth has been learning English. Speaking, writing, and expressing myself in a different language has always been challenging for me. There were moments when I felt embarrassed or nervous to speak in public. But each time I decided to try, even when my voice shook, I became a little braver.
+  </p>
+
+  <p>
+    English taught me confidence — not the kind that appears out of nowhere, but the one that grows step by step, through mistakes, practice, and courage. Learning a language opened doors to new opportunities, new people, and new ways of seeing the world. It made me understand that communication is not about perfection; it is about connection.
+  </p>
+
+  <p>
+    Volunteering has also played a big role in my personal growth. Through volunteering, I learned the importance of compassion, responsibility, and teamwork. Whether helping with events, supporting others, or being part of community activities, I realized how much I could contribute when I decided to participate.
+  </p>
+
+  <blockquote>
+    “Challenges are not obstacles meant to stop us — they are opportunities waiting to transform us.”
+  </blockquote>
+
+  <p>
+    Volunteering took me out of my usual routine and showed me the value of giving time and effort to something greater than myself. It taught me humility, gratitude, and the importance of making a positive difference, even if the action seems small.
+  </p>
+
+  <p>
+    What connects programming, English, and volunteering is that each one required something from me — effort, patience, courage, and dedication. And each one gave me something in return: new skills, confidence, friendships, and experiences that shaped who I am becoming.
+  </p>
+
+  <p>
+    I learned that challenges are not obstacles meant to stop me; they are opportunities waiting to transform me. Looking back, I see how every academic challenge was more than just schoolwork. It was a chance to discover new abilities, strengthen my character, and understand myself better.
+  </p>
+
+  <p>
+    When things got difficult, I learned to stay focused. When I felt uncertain, I learned to believe in my potential. And when I succeeded, I learned to appreciate how far I had come. Today, I appreciate challenges instead of avoiding them.
+  </p>
+
+  <p>
+    I know that stepping outside my comfort zone will always feel uncomfortable, but that discomfort is a sign that I am learning something important. Without those difficult moments, I would not have developed the confidence, discipline, and curiosity that I have now.
+  </p>
+
+  <p>
+    In the end, every challenge — no matter how small or intimidating — has a purpose. It opens a door to skills, experiences, and lessons that I would never have gained if I had chosen to stay where I felt safe.
+  </p>
+
+  <p>
+    By daring to try, to fail, and to try again, I continue to grow not only as a student, but as a person.
+  </p>
+
+  <p>
+    And that is the most valuable lesson: growth happens when you choose courage over comfort, and every challenge is an opportunity to become a better version of yourself.
+  </p>
+
+</article>
+</main>
+
+
+  <script>
+    // font size control
+    const article = document.getElementById('article');
+    const increase = document.getElementById('increase');
+    const decrease = document.getElementById('decrease');
+    const contrast = document.getElementById('contrast');
+    let currentSize = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--base-font')) || 18;
+
+    function applySize() {
+      article.style.fontSize = currentSize + "px";
+    }
+    applySize();
+
+    increase.addEventListener('click', () => {
+      currentSize = Math.min(26, currentSize + 1.5);
+      applySize();
+    });
+    decrease.addEventListener('click', () => {
+      currentSize = Math.max(14, currentSize - 1.5);
+      applySize();
+    });
+
+    // contrast toggle
+    let highContrast = false;
+    contrast.addEventListener('click', () => {
+      highContrast = !highContrast;
+      if(highContrast){
+        document.documentElement.style.setProperty('--card', 'rgba(12,16,20,0.9)');
+        document.documentElement.style.setProperty('--text','#f8fdff');
+        document.documentElement.style.setProperty('--muted','#c6eefa');
+      } else {
+        document.documentElement.style.setProperty('--card', 'rgba(18,22,26,0.6)');
+        document.documentElement.style.setProperty('--text','#e6eef6');
+        document.documentElement.style.setProperty('--muted','#9aa6b2');
+      }
+    });
+
+    // reading progress
+    const progress = document.getElementById('progress');
+    window.addEventListener('scroll', () => {
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrolled = (window.scrollY / docHeight) * 100;
+      progress.style.width = Math.max(0, Math.min(100, scrolled)) + "%";
+    });
+
+    // keyboard accessibility for font size
+    document.addEventListener('keydown', (e) => {
+      if((e.ctrlKey || e.metaKey) && e.key === '+') {
+        e.preventDefault();
+        increase.click();
+      }
+      if((e.ctrlKey || e.metaKey) && e.key === '-') {
+        e.preventDefault();
+        decrease.click();
+      }
+    });
+
+    
+  </script>
+
+</body>
+</html>

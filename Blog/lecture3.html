@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>The Importance of Stepping Outside Your Comfort Zone</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg-1: #0b0f13;
+      --bg-2: #0f1418;
+      --card: rgba(18,22,26,0.6);
+      --muted: #9aa6b2;
+      --accent: #7dd3fc;
+      --text: #e6eef6;
+      --max-width: 800px;
+      --base-font: 18px;
+    }
+
+    /* Page */
+    html,body{height:100%}
+   body{
+  margin:0;
+  min-height:100%;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: radial-gradient(1200px 600px at 10% 10%, rgba(125,211,252,0.03), transparent 6%),
+              linear-gradient(180deg,var(--bg-1),var(--bg-2));
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  display:block;   /* ← YA ESTÁ */
+  padding:48px 24px;
+}
+
+
+
+    /* Subtle vignette */
+    body::after{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background: radial-gradient(60% 40% at 50% 40%, rgba(255,255,255,0.02), transparent 30%),
+                  linear-gradient(180deg, rgba(0,0,0,0.28), transparent 40%);
+      mix-blend-mode:overlay;
+    }
+
+    /* Reading card */
+    .reader {
+      width:100%;
+      max-width:var(--max-width);
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:14px;
+      padding:36px;
+      box-shadow: 0 8px 40px rgba(2,6,12,0.7), inset 0 1px 0 rgba(255,255,255,0.02);
+      backdrop-filter: blur(6px) saturate(110%);
+      border: 1px solid rgba(255,255,255,0.03);
+    }
+
+    /* Header / controls */
+    .reader-header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      margin-bottom:18px;
+    }
+
+    .meta {
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+
+    .title{
+      font-family: "Merriweather", Georgia, serif;
+      font-size:1.45rem;
+      line-height:1.15;
+      margin:0;
+      font-weight:700;
+      letter-spacing: -0.01em;
+      color:var(--text);
+    }
+
+    .meta small{
+      color:var(--muted);
+      display:block;
+      font-size:0.86rem;
+    }
+
+    /* Controls */
+    .controls{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .control-btn{
+      background:transparent;
+      border:1px solid rgba(255,255,255,0.06);
+      color:var(--text);
+      padding:8px 10px;
+      border-radius:8px;
+      cursor:pointer;
+      font-weight:600;
+      font-size:0.9rem;
+      transition:transform .12s ease, background .12s ease;
+    }
+    .control-btn:hover{ transform:translateY(-2px); background: rgba(255,255,255,0.02); }
+    .control-btn:active{ transform:translateY(0); }
+
+    /* Progress bar */
+    .progress-wrap{
+      height:6px;
+      background: rgba(255,255,255,0.03);
+      border-radius:999px;
+      overflow:hidden;
+      margin:14px 0 22px;
+    }
+    .progress{
+      height:100%;
+      width:0%;
+      background: linear-gradient(90deg, rgba(125,211,252,0.24), rgba(125,211,252,0.6));
+      box-shadow: 0 4px 18px rgba(125,211,252,0.06);
+      transition: width .08s linear;
+    }
+
+    /* Article content */
+    article{
+      font-family: "Merriweather", Georgia, serif;
+      font-size: var(--base-font);
+      line-height:1.75;
+      color:var(--text);
+    }
+
+    article p{
+      margin:0 0 1.15em 0;
+      color: #cfe7f7;
+      opacity:0.95;
+    }
+
+    article p.lead{
+      color:var(--muted);
+      font-weight:500;
+      font-size:1.03rem;
+    }
+
+    article blockquote{
+      margin:18px 0;
+      padding:12px 18px;
+      border-left:4px solid rgba(125,211,252,0.28);
+      background: rgba(125,211,252,0.03);
+      border-radius:8px;
+      color: #dff6ff;
+      font-style:italic;
+    }
+
+    article h2{
+      font-family: "Merriweather", serif;
+      margin: 16px 0 8px;
+      font-size:1.05rem;
+      letter-spacing: -0.01em;
+    }
+
+    /* Drop cap style for first letter */
+    article p:first-of-type::first-letter{
+      float:left;
+      font-size:3.2rem;
+      line-height:1;
+      padding-right:10px;
+      font-weight:700;
+      color:var(--accent);
+      font-family: "Merriweather", Georgia, serif;
+    }
+
+    /* Smaller screens */
+    @media (max-width:600px){
+      .reader{ padding:20px; border-radius:12px; }
+      .title{ font-size:1.15rem; }
+      :root{ --base-font:16px; }
+    }
+
+    /* Accessibility focus */
+    .control-btn:focus{ outline:3px solid rgba(125,211,252,0.18); outline-offset:2px; }
+
+  </style>
+</head>
+<body>
+
+  <main class="reader" role="main" aria-labelledby="article-title">
+    <div class="reader-header">
+      <div class="meta" aria-hidden="false">
+        <div>
+          <h1 id="article-title" class="title">The Importance of Stepping Outside Your Comfort Zone</h1>
+          <small>Personal reflection • Reading mode — Dark</small>
+        </div>
+      </div>
+
+      <div class="controls" aria-hidden="false">
+        <button class="control-btn" id="decrease" title="Decrease text size" aria-label="Decrease text size">A-</button>
+        <button class="control-btn" id="increase" title="Increase text size" aria-label="Increase text size">A+</button>
+        <button class="control-btn" id="contrast" title="Toggle higher contrast" aria-label="Toggle contrast">Contrast</button>
+      </div>
+    </div>
+
+    <div class="progress-wrap" aria-hidden="true">
+      <div class="progress" id="progress"></div>
+    </div>
+
+    <article id="article">
+      <p class="lead">
+       <p>
+            Stepping outside your comfort zone is never easy, but it is exactly where real learning and growth happen. 
+            For a long time, I believed that staying in a familiar space was safer. I thought that avoiding challenges meant 
+            avoiding failure. But as I continued studying and taking on new responsibilities, I realized that comfort can also 
+            limit your potential. The moment you dare to step beyond what feels safe, you begin to discover abilities, strengths, 
+            and opportunities you didn’t know you had.
+        </p>
+
+        <p>
+            Programming was one of the first areas that pushed me out of my comfort zone. At the beginning, everything seemed 
+            confusing—the logic, the errors, and the amount of practice required. I felt frustrated many times, but each challenge 
+            taught me something valuable. By forcing myself to keep going, I learned to be patient, to think creatively, and to 
+            solve problems in new ways. Programming showed me that growth comes from effort and persistence, especially when things 
+            get difficult.
+        </p>
+
+        <p>
+            Learning English also challenged me in ways I did not expect. Speaking in front of others was one of my biggest fears. 
+            I worried about making mistakes or pronouncing something incorrectly. But every time I pushed myself to practice, even 
+            when I felt nervous, I became more confident. Eventually, I realized that mistakes are part of the process. English 
+            helped me develop courage, communication skills, and the confidence to express myself in different environments. If I 
+            had stayed in my comfort zone, I would have missed all those opportunities.
+        </p>
+
+        <p>
+            Volunteering has also played an important role in my personal growth. Through volunteering, I learned the importance 
+            of teamwork, responsibility, and empathy. It pushed me to engage with people, take initiative, and contribute to 
+            something meaningful. These experiences helped me understand that stepping forward, even when it feels unfamiliar, 
+            can create positive change not only for others but also for myself.
+        </p>
+
+        <p>
+            Through programming, English, and volunteering, I have discovered that every new challenge, no matter how scary it 
+            seems at first, opens the door to skills, experiences, and lessons I would never have gained otherwise. Leaving your 
+            comfort zone is not just about facing difficulties—it is about discovering who you can become.
+        </p>
+
+        <p>
+            In the end, the importance of stepping outside your comfort zone lies in the person you grow into. Each challenge 
+            shapes you, strengthens you, and prepares you for the future. And although it may feel intimidating at first, 
+            taking that step is always worth it.
+        </p>
+   
+
+    </article>
+  </main>
+
+  <script>
+    // font size control
+    const article = document.getElementById('article');
+    const increase = document.getElementById('increase');
+    const decrease = document.getElementById('decrease');
+    const contrast = document.getElementById('contrast');
+    let currentSize = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--base-font')) || 18;
+
+    function applySize() {
+      article.style.fontSize = currentSize + "px";
+    }
+    applySize();
+
+    increase.addEventListener('click', () => {
+      currentSize = Math.min(26, currentSize + 1.5);
+      applySize();
+    });
+    decrease.addEventListener('click', () => {
+      currentSize = Math.max(14, currentSize - 1.5);
+      applySize();
+    });
+
+    // contrast toggle
+    let highContrast = false;
+    contrast.addEventListener('click', () => {
+      highContrast = !highContrast;
+      if(highContrast){
+        document.documentElement.style.setProperty('--card', 'rgba(12,16,20,0.9)');
+        document.documentElement.style.setProperty('--text','#f8fdff');
+        document.documentElement.style.setProperty('--muted','#c6eefa');
+      } else {
+        document.documentElement.style.setProperty('--card', 'rgba(18,22,26,0.6)');
+        document.documentElement.style.setProperty('--text','#e6eef6');
+        document.documentElement.style.setProperty('--muted','#9aa6b2');
+      }
+    });
+
+    // reading progress
+    const progress = document.getElementById('progress');
+    window.addEventListener('scroll', () => {
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrolled = (window.scrollY / docHeight) * 100;
+      progress.style.width = Math.max(0, Math.min(100, scrolled)) + "%";
+    });
+
+    // keyboard accessibility for font size
+    document.addEventListener('keydown', (e) => {
+      if((e.ctrlKey || e.metaKey) && e.key === '+') {
+        e.preventDefault();
+        increase.click();
+      }
+      if((e.ctrlKey || e.metaKey) && e.key === '-') {
+        e.preventDefault();
+        decrease.click();
+      }
+    });
+
+    
+  </script>
+
+</body>
+</html>

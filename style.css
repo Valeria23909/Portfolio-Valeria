@@ -458,13 +458,20 @@ a.project-card:hover {
 
 .blog-card {
   background-color: #1a1b1f;
-  border-radius: 16px;
+  border-radius: 18px; /* más suave */
   padding: 25px;
   text-align: left;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
   border: 2px solid transparent;
+
+  /* --- NUEVO: hace que sean más cuadradas --- */
+  height: 380px;             /* controla la altura total */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
+
 
 .blog-card:hover {
   transform: translateY(-5px);

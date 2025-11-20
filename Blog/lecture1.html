@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Reading Mode — How I Overcame My Fear</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg-1: #0b0f13;
+      --bg-2: #0f1418;
+      --card: rgba(18,22,26,0.6);
+      --muted: #9aa6b2;
+      --accent: #7dd3fc;
+      --text: #e6eef6;
+      --max-width: 800px;
+      --base-font: 18px;
+    }
+
+    /* Page */
+    html,body{height:100%}
+   body{
+  margin:0;
+  min-height:100%;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: radial-gradient(1200px 600px at 10% 10%, rgba(125,211,252,0.03), transparent 6%),
+              linear-gradient(180deg,var(--bg-1),var(--bg-2));
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  display:block;   /* ← YA ESTÁ */
+  padding:48px 24px;
+}
+
+
+
+    /* Subtle vignette */
+    body::after{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background: radial-gradient(60% 40% at 50% 40%, rgba(255,255,255,0.02), transparent 30%),
+                  linear-gradient(180deg, rgba(0,0,0,0.28), transparent 40%);
+      mix-blend-mode:overlay;
+    }
+
+    /* Reading card */
+    .reader {
+      width:100%;
+      max-width:var(--max-width);
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:14px;
+      padding:36px;
+      box-shadow: 0 8px 40px rgba(2,6,12,0.7), inset 0 1px 0 rgba(255,255,255,0.02);
+      backdrop-filter: blur(6px) saturate(110%);
+      border: 1px solid rgba(255,255,255,0.03);
+    }
+
+    /* Header / controls */
+    .reader-header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      margin-bottom:18px;
+    }
+
+    .meta {
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+
+    .title{
+      font-family: "Merriweather", Georgia, serif;
+      font-size:1.45rem;
+      line-height:1.15;
+      margin:0;
+      font-weight:700;
+      letter-spacing: -0.01em;
+      color:var(--text);
+    }
+
+    .meta small{
+      color:var(--muted);
+      display:block;
+      font-size:0.86rem;
+    }
+
+    /* Controls */
+    .controls{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .control-btn{
+      background:transparent;
+      border:1px solid rgba(255,255,255,0.06);
+      color:var(--text);
+      padding:8px 10px;
+      border-radius:8px;
+      cursor:pointer;
+      font-weight:600;
+      font-size:0.9rem;
+      transition:transform .12s ease, background .12s ease;
+    }
+    .control-btn:hover{ transform:translateY(-2px); background: rgba(255,255,255,0.02); }
+    .control-btn:active{ transform:translateY(0); }
+
+    /* Progress bar */
+    .progress-wrap{
+      height:6px;
+      background: rgba(255,255,255,0.03);
+      border-radius:999px;
+      overflow:hidden;
+      margin:14px 0 22px;
+    }
+    .progress{
+      height:100%;
+      width:0%;
+      background: linear-gradient(90deg, rgba(125,211,252,0.24), rgba(125,211,252,0.6));
+      box-shadow: 0 4px 18px rgba(125,211,252,0.06);
+      transition: width .08s linear;
+    }
+
+    /* Article content */
+    article{
+      font-family: "Merriweather", Georgia, serif;
+      font-size: var(--base-font);
+      line-height:1.75;
+      color:var(--text);
+    }
+
+    article p{
+      margin:0 0 1.15em 0;
+      color: #cfe7f7;
+      opacity:0.95;
+    }
+
+    article p.lead{
+      color:var(--muted);
+      font-weight:500;
+      font-size:1.03rem;
+    }
+
+    article blockquote{
+      margin:18px 0;
+      padding:12px 18px;
+      border-left:4px solid rgba(125,211,252,0.28);
+      background: rgba(125,211,252,0.03);
+      border-radius:8px;
+      color: #dff6ff;
+      font-style:italic;
+    }
+
+    article h2{
+      font-family: "Merriweather", serif;
+      margin: 16px 0 8px;
+      font-size:1.05rem;
+      letter-spacing: -0.01em;
+    }
+
+    /* Drop cap style for first letter */
+    article p:first-of-type::first-letter{
+      float:left;
+      font-size:3.2rem;
+      line-height:1;
+      padding-right:10px;
+      font-weight:700;
+      color:var(--accent);
+      font-family: "Merriweather", Georgia, serif;
+    }
+
+    /* Smaller screens */
+    @media (max-width:600px){
+      .reader{ padding:20px; border-radius:12px; }
+      .title{ font-size:1.15rem; }
+      :root{ --base-font:16px; }
+    }
+
+    /* Accessibility focus */
+    .control-btn:focus{ outline:3px solid rgba(125,211,252,0.18); outline-offset:2px; }
+
+  </style>
+</head>
+<body>
+
+  <main class="reader" role="main" aria-labelledby="article-title">
+    <div class="reader-header">
+      <div class="meta" aria-hidden="false">
+        <div>
+          <h1 id="article-title" class="title">How I Overcame My Fear of Speaking English in Front of Others</h1>
+          <small>Personal reflection • Reading mode — Dark</small>
+        </div>
+      </div>
+
+      <div class="controls" aria-hidden="false">
+        <button class="control-btn" id="decrease" title="Decrease text size" aria-label="Decrease text size">A-</button>
+        <button class="control-btn" id="increase" title="Increase text size" aria-label="Increase text size">A+</button>
+        <button class="control-btn" id="contrast" title="Toggle higher contrast" aria-label="Toggle contrast">Contrast</button>
+      </div>
+    </div>
+
+    <div class="progress-wrap" aria-hidden="true">
+      <div class="progress" id="progress"></div>
+    </div>
+
+    <article id="article">
+      <p class="lead">
+        For many years, speaking English in front of others felt like a huge mountain I was not prepared to climb.
+      </p>
+
+      <p>
+        I always worried about making mistakes, pronouncing something wrong, or simply forgetting what I wanted to say. Even though I studied and practiced on my own, the moment I had to use English in front of people, my mind would go blank. This fear became a wall that stopped my progress and made me doubt my ability to truly learn the language.
+      </p>
+
+      <p>
+        The turning point came when I realized that fear itself was teaching me something. Every time I avoided speaking, I felt disappointed in myself. One day, during a group activity, I decided that avoiding the challenge was no longer an option. I told myself that even if I made mistakes, it was better to try than to stay silent. That small decision changed everything. It wasn’t about being perfect; it was about being brave enough to begin.
+      </p>
+
+      <p>
+        My first step was preparation. I started practicing short sentences in front of a mirror, recording myself, and even talking alone while doing my daily tasks. At first, it felt strange, but soon I noticed improvement. Preparing phrases and possible answers reduced my anxiety because I felt more in control of what I wanted to express. Little by little, I gained familiarity with the sound of my own voice speaking English.
+      </p>
+
+      <p>
+        The second step was practice with real people. I joined small study groups and participated in simple conversations. At first, my voice trembled and my hands shook, but every time I spoke, I realized something important: people were not judging me. Most of them were learning too, and they understood how difficult it can be. Instead of criticism, I received support, corrections, and encouragement. This made me feel more confident and motivated to continue.
+      </p>
+
+      <blockquote>
+        “The real transformation happened when I dared to speak English in front of a larger audience.”
+      </blockquote>
+
+      <p>
+        The real transformation happened when I dared to speak English in front of a larger audience. My biggest presentation was when my team and I introduced a digital project we had developed: TrackMate, an automotive maintenance application designed to help users track services, repairs, and vehicle information. It was a project we had worked on for weeks, and presenting it in English felt intimidating. I prepared my part of the presentation over and over again, practicing the explanation of the app’s features, its purpose, and why it was useful.
+      </p>
+
+      <p>
+        When the day arrived, I felt the familiar fear rising inside me. But I reminded myself of all the preparation I had done. I took a deep breath and began my part of the presentation. My voice was not perfect, and I stumbled over a few words, but I delivered the message clearly. When I finished, I looked up and saw my classmates and teachers listening attentively and nodding. Their reaction filled me with relief and pride. It was then that I understood how much I had grown.
+      </p>
+
+      <p>
+        Looking back, I can say that this experience marked a turning point in my learning. I realized that fear can turn into confidence through practice, preparation, and courage. Speaking English is not just about vocabulary or grammar; it is about believing in your ability to improve. Every attempt counts, and every mistake teaches you something valuable.
+      </p>
+
+      <p>
+        Today, I no longer avoid situations where I have to speak English. Instead, I see them as opportunities to grow. The fear is still there sometimes, but it no longer controls me. If I had waited to feel completely ready, I would still be silent. By daring to take that step, I discovered a stronger, braver version of myself.
+      </p>
+
+      <p>
+        And that is the greatest lesson I learned: confidence is not something you magically get — it is something you build, one word at a time.
+      </p>
+    </article>
+  </main>
+
+  <script>
+    // font size control
+    const article = document.getElementById('article');
+    const increase = document.getElementById('increase');
+    const decrease = document.getElementById('decrease');
+    const contrast = document.getElementById('contrast');
+    let currentSize = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--base-font')) || 18;
+
+    function applySize() {
+      article.style.fontSize = currentSize + "px";
+    }
+    applySize();
+
+    increase.addEventListener('click', () => {
+      currentSize = Math.min(26, currentSize + 1.5);
+      applySize();
+    });
+    decrease.addEventListener('click', () => {
+      currentSize = Math.max(14, currentSize - 1.5);
+      applySize();
+    });
+
+    // contrast toggle
+    let highContrast = false;
+    contrast.addEventListener('click', () => {
+      highContrast = !highContrast;
+      if(highContrast){
+        document.documentElement.style.setProperty('--card', 'rgba(12,16,20,0.9)');
+        document.documentElement.style.setProperty('--text','#f8fdff');
+        document.documentElement.style.setProperty('--muted','#c6eefa');
+      } else {
+        document.documentElement.style.setProperty('--card', 'rgba(18,22,26,0.6)');
+        document.documentElement.style.setProperty('--text','#e6eef6');
+        document.documentElement.style.setProperty('--muted','#9aa6b2');
+      }
+    });
+
+    // reading progress
+    const progress = document.getElementById('progress');
+    window.addEventListener('scroll', () => {
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrolled = (window.scrollY / docHeight) * 100;
+      progress.style.width = Math.max(0, Math.min(100, scrolled)) + "%";
+    });
+
+    // keyboard accessibility for font size
+    document.addEventListener('keydown', (e) => {
+      if((e.ctrlKey || e.metaKey) && e.key === '+') {
+        e.preventDefault();
+        increase.click();
+      }
+      if((e.ctrlKey || e.metaKey) && e.key === '-') {
+        e.preventDefault();
+        decrease.click();
+      }
+    });
+
+    
+  </script>
+
+</body>
+</html>
